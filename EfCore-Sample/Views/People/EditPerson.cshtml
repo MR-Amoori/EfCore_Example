@@ -1,0 +1,32 @@
+﻿@model Person
+@{
+    ViewData["Title"] = "Edit Person";
+}
+
+ <form method="post" asp-action="EditPerson" asp-controller="People">
+       <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+       <input type="hidden" value="@Model.Id" asp-for="Id" />
+
+       <div class="form-group">
+                <label class="text-info" asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+       </div>
+       <br />
+       <div class="form-group">
+                <label class="text-info" asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+       </div>
+       <br />
+       <div class="form-group">
+          <input type="submit" value="Submit" class="btn btn-success" />
+       </div>
+
+   </form>
+
+
+@section Scripts{ 
+        <partial name="_ValidationScriptsPartial" />
+}
