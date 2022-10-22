@@ -16,7 +16,7 @@ namespace EfCore_Sample.Models
         [DataType(DataType.Password)]
         [MaxLength(10)]
         [MinLength(8)]
-        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "8 Char - A-z - 0-9")]
         public string? Password { get; set; }
 
     }

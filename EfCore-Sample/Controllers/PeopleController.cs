@@ -13,16 +13,16 @@ namespace EfCore_Sample.Controllers
             _context = context;
         }
 
-        [HttpPost]
         public IActionResult AddPerson(Person person)
         {
-            if (person == null)
-                return View(person);
-
-            if (_context.People.Any(p => p.UserName == person.UserName) == true)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("Username", "This Username Exists !");
                 return View(person);
+            }
+
+            if (_context.People.Any(p => p.UserName.ToLower() == person.UserName.ToLower()) == true)
+            {
+                return RedirectToActionPermanent("Index", "Home");
             }
 
             _context.People.Add(person);

@@ -33,21 +33,22 @@
     </table>
   
     <hr />
+
     
     <form method="post" asp-action="AddPerson" asp-controller="People">
        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
        <div class="form-group">
-                <label asp-for="person.UserName" class="control-label"></label>
+                <label class="text-info" asp-for="person.UserName" class="control-label"></label>
                 <input asp-for="person.UserName" class="form-control" />
                 <span asp-validation-for="person.UserName" class="text-danger"></span>
        </div>
-   
-        <div class="form-group">
-                <label asp-for="person.Password" class="control-label"></label>
+       <br />
+       <div class="form-group">
+                <label class="text-info" asp-for="person.Password" class="control-label"></label>
                 <input asp-for="person.Password" class="form-control" />
                 <span asp-validation-for="person.Password" class="text-danger"></span>
        </div>
-
+       <br />
        <div class="form-group">
           <input type="submit" value="Submit" class="btn btn-success" />
        </div>
@@ -55,3 +56,7 @@
    </form>
 
 </div>
+
+@section Scripts{ 
+    <partial name="_ValidationScriptsPartial" />
+}
