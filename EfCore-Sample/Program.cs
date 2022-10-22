@@ -9,6 +9,11 @@ builder.Services.AddControllersWithViews();
 
 // This ConnectionString : 
 var connectionString = builder.Configuration.GetConnectionString("LocalHostConnection");
+if (String.IsNullOrWhiteSpace(connectionString))
+{
+    // ConnectionString Is Null !!!
+    connectionString = "ConnectionString Is Null !!!";
+}
 // Or
 var connectionString2 = builder.Configuration.GetSection("connectionString")["LocalHostConnection"];
 // End ConnectionString
