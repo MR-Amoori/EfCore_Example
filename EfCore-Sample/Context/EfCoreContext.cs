@@ -17,6 +17,7 @@ namespace EfCore_Sample.Context
         {
             modelBuilder.Entity<Person>().HasData(new Person()
             {
+                Id = 1,
                 UserName = "Admin",
                 Password = "1234"
             });

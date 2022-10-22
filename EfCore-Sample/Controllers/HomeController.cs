@@ -1,4 +1,6 @@
-﻿using EfCore_Sample.Models;
+﻿using EfCore_Sample.Context;
+using EfCore_Sample.Models;
+using EfCore_Sample.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +8,22 @@ namespace EfCore_Sample.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly EfCoreContext _context;
+
+        public HomeController(EfCoreContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
-            return View();
+            IndexViewModel model = new();
+
+            model.people = _context.People.ToList();
+
+            return View(model);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
