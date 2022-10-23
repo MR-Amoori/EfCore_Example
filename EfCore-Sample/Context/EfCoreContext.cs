@@ -1,4 +1,5 @@
-﻿using EfCore_Sample.Models;
+﻿using EfCore_Sample.Mapping;
+using EfCore_Sample.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCore_Sample.Context
@@ -21,6 +22,8 @@ namespace EfCore_Sample.Context
                 UserName = "Admin",
                 Password = "1234"
             });
+
+            modelBuilder.ApplyConfiguration(new PersonMapping());
 
             base.OnModelCreating(modelBuilder);
         }
