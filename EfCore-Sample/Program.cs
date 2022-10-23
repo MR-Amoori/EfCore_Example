@@ -1,4 +1,6 @@
 using EfCore_Sample.Context;
+using EfCore_Sample.Repositories.Repository;
+using EfCore_Sample.Repositories.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,13 @@ builder.Services.AddDbContext<EfCoreContext>(x => x.UseSqlServer(connectionStrin
 // End Add Context
 
 #endregion
+
+#region IOC
+
+builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
+
+#endregion
+
 
 
 var app = builder.Build();

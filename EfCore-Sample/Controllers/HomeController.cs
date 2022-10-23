@@ -1,5 +1,5 @@
-﻿using EfCore_Sample.Context;
-using EfCore_Sample.Models;
+﻿using EfCore_Sample.Models;
+using EfCore_Sample.Repositories.Repository;
 using EfCore_Sample.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,21 +8,22 @@ namespace EfCore_Sample.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly EfCoreContext _context;
 
-        public HomeController(EfCoreContext context)
+        private readonly IPeopleRepository _repository;
+
+        public HomeController(IPeopleRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
             IndexViewModel model = new();
 
-            model.people = _context.People.ToList();
+            model.people = _repository.GetPeople();
 
             // Update All Data 
-            // var personForSample = _context.People.ToList();
+            // var personForSample = _repository.GetPeople();
             // personForSample.ForEach(p => p.Password = "Mohamad021_@");
 
             return View(model);

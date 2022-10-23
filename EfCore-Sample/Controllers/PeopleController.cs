@@ -1,16 +1,16 @@
-﻿using EfCore_Sample.Context;
-using EfCore_Sample.Models;
+﻿using EfCore_Sample.Models;
+using EfCore_Sample.Repositories.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EfCore_Sample.Controllers
 {
     public class PeopleController : Controller
     {
-        EfCoreContext _context;
+        private readonly IPeopleRepository _repository;
 
-        public PeopleController(EfCoreContext context)
+        public PeopleController(IPeopleRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpPost]
@@ -21,35 +21,31 @@ namespace EfCore_Sample.Controllers
                 return View(person);
             }
 
-            if (_context.People.Any(p => p.UserName.ToLower() == person.UserName.ToLower()) == true)
+            if (_repository.HasPeople(person.Id))
             {
                 return RedirectToActionPermanent("Index", "Home");
             }
 
-            _context.People.Add(person);
-            _context.SaveChanges();
+            _repository.AddPerson(person);
 
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult DeletePerson(int Id)
+        public IActionResult DeletePerson(int id)
         {
-            if (_context.People.Any(p => p.Id == Id))
+            if (_repository.HasPeople(id))
             {
-                var person = _context.People.FirstOrDefault(p => p.Id == Id);
-                _context.People.Remove(person);
-                _context.SaveChanges();
+                _repository.DeletePeople(id);
             }
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public IActionResult EditPerson(int Id)
+        public IActionResult EditPerson(int id)
         {
-            if (_context.People.Any(p => p.Id == Id))
+            if (_repository.HasPeople(id))
             {
-                Person? person = _context.People.FirstOrDefault(p => p.Id == Id);
-                return View(person);
+                return View(_repository.GetById(id));
             }
             return RedirectToAction("Index", "Home");
         }
@@ -63,8 +59,7 @@ namespace EfCore_Sample.Controllers
                 return View(person);
             }
 
-            _context.People.Update(person);
-            _context.SaveChanges();
+            _repository.UpdatePeople(person);
 
             return RedirectToAction("Index", "Home");
         }
