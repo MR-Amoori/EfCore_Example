@@ -21,6 +21,10 @@ namespace EfCore_Sample.Controllers
 
             model.people = _context.People.ToList();
 
+            // Update All Data 
+            // var personForSample = _context.People.ToList();
+            // personForSample.ForEach(p => p.Password = "Mohamad021_@");
+
             return View(model);
         }
 

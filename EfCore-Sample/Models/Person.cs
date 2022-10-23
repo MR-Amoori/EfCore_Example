@@ -19,5 +19,6 @@ namespace EfCore_Sample.Models
         [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "8 Char - A-z - 0-9")]
         public string? Password { get; set; }
 
+        public bool IsDeleted { get; set; }
     }
 }
