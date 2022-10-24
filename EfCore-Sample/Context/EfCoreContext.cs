@@ -12,18 +12,29 @@ namespace EfCore_Sample.Context
         }
 
         public DbSet<Person> People { get; set; }
+        public DbSet<PersonInformation> PersonInformation { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new PersonMapping());
+            modelBuilder.ApplyConfiguration(new PersonInformationMapping());
+
+            #region Seed Data
             modelBuilder.Entity<Person>().HasData(new Person()
             {
                 Id = 1,
                 UserName = "Admin",
-                Password = "1234"
+                Password = "Mramoori021_@"
             });
-
-            modelBuilder.ApplyConfiguration(new PersonMapping());
+            modelBuilder.Entity<PersonInformation>().HasData(new Models.PersonInformation()
+            {
+                PersonInfoId = 1,
+                PersonId = 1,
+                Age = 17,
+                PhoneNumber = "09035170373"
+            });
+            #endregion
 
             base.OnModelCreating(modelBuilder);
         }

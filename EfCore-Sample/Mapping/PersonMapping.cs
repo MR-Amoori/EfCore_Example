@@ -15,8 +15,12 @@ namespace EfCore_Sample.Mapping
 
             builder.Property(x => x.UserName).HasMaxLength(255).IsRequired();
 
-            builder.Property(x => x.Password).HasMaxLength(15)
-                .HasColumnType("Password").IsRequired();
+            builder.Property(x => x.Password).HasMaxLength(15).IsRequired();
+
+
+            builder.HasOne(x => x.PersonInformation).WithOne(x => x.Person)
+                .HasForeignKey<PersonInformation>(x => x.PersonId);
+
 
             //  builder.Property(c => c.Password).HasDefaultValue(13522452);
         }
