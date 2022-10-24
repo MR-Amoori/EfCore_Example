@@ -15,13 +15,21 @@ namespace EfCore_Sample.Context
         public DbSet<PersonInformation> PersonInformation { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<BookCategory> BookCategories { get; set; }
+        public DbSet<BookToCategories> BookToCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PersonMapping());
             modelBuilder.ApplyConfiguration(new PersonInformationMapping());
+
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new ProductCategoryMapping());
+
+            modelBuilder.ApplyConfiguration(new BookMapping());
+            modelBuilder.ApplyConfiguration(new BookCategoryMapping());
+            modelBuilder.ApplyConfiguration(new BookToCategoryMapping());
 
             #region Seed Data
             modelBuilder.Entity<Person>().HasData(new Person()
